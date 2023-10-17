@@ -1,5 +1,6 @@
 # Crop Recommendation System
 
+## Project Description
 This is my final year project
 
 Problem: climate change is a topic that has become the attention of many including global leaders, heads of states and global organizations like the United Nations. Farmers have also been largely affected as they rely on weather to grow crops. It has however become difficult to decide which crop to grow due to the changes in climate change.
@@ -14,3 +15,11 @@ Guess what? This project aligns with SDG goals to promote sustainable developmen
 
 
 The code is above! HAVE FUN!😁
+
+## So, What's the plan?
+1. Train a machine learning model using google colab.
+2. Export and download the model to use while creating an API.
+2. Create an API using Flask to deploy the trained model.
+3. Test the created API using Postman.
+4. Deploy model - PythonAnywhere is a good place to start
+5. Create a usable interface - mobile app to interact with the trained model!
