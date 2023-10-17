@@ -52,7 +52,9 @@ def predict():
             'watermelon': 21
         }
 
-    return list(labels_mappings.keys())[list(labels_mappings.values()).index(prediction[0])]
+        result = list(labels_mappings.keys())[list(labels_mappings.values()).index(prediction[0])]
+
+    return jsonify({"result": result})
 
 
 if __name__ == '__main__':
