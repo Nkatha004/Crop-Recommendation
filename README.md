@@ -21,5 +21,5 @@ The code is above! HAVE FUN!😁
 2. Export and download the model to use while creating an API.
 2. Create an API using Flask to deploy the trained model.
 3. Test the created API using Postman.
-4. Deploy model - PythonAnywhere is a good place to start
+4. Deploy model - vercel is a good place to start
 5. Create a usable interface - mobile app to interact with the trained model!
