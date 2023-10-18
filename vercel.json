@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "./crop_recommendation.py",
+            "src": "crop_recommendation.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "crop_recommendation.py"
         }
     ]
 }
