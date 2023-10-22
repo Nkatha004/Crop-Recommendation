@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">M-SHAMBA</string>
+
+    <string name="crop_recommendation">CROP RECOMMENDATION</string>
+    <string name="farm_location">Input Farm Location</string>
+    <string name="parameters">Input soil parameters as NPK ratios | View weather parameters</string>
+    <string name="prediction_result">Crop Prediction Result</string>
+
+    <string name="location">Location</string>
+    <string name="recommended_crop">Recommended crop: </string>
+    <string name="crop">RICE</string>
+    <string name="myLocation">Use my current location</string>
+    <string name="error">Something went wrong!</string>
+    <string name="weather_parameters">View Weather Parameters</string>
+    <string name="weather">weather</string>
+    <string name="soil">soil</string>
+
+    <string name="rainfall">Rainfall in mm</string>
+    <string name="temperature">Temperature (°C)</string>
+    <string name="humidity">Humidity</string>
+
+    <string name="nitrogen">Nitrogen (N)</string>
+    <string name="phosphorous">Phosphorous (P)</string>
+    <string name="potassium">Potassium (K)</string>
+    <string name="pH">Soil pH</string>
+
+    <string name="next">NEXT</string>
+    <string name="predict">PREDICT</string>
+    <string name="home">HOME</string>
+</resources>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:clickable="true"
+    tools:context=".Parameters">
+
+    <TextView
+        android:id="@+id/crop_recommendation"
+        android:layout_width="370dp"
+        android:layout_height="31dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/header"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/parametersLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:layout_width="359dp"
+        android:layout_height="63dp"
+        android:text="@string/parameters"
+        android:textAlignment="center"
+        android:textColor="@color/normal"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/parametersLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crop_recommendation"
+        app:layout_constraintVertical_bias="0.354" />
+
+    <LinearLayout
+        android:id="@+id/parametersLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/bg_inputs"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/WeatherSoilSwitch"
+            android:layout_width="203dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/weather_parameters"
+            android:textColor="@color/header"
+            android:textSize="13sp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/soilLayout"
+            android:layout_width="match_parent"
+            android:layout_height="393dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/nitrogen"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/nitrogen"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/phosphorous"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/phosphorous"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/potassium"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/potassium"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/pH"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/pH"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weatherLayout"
+            android:layout_width="match_parent"
+            android:layout_height="327dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/rainfall"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/rainfall"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/temperature"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/temperature"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/humidity"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/humidity"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnPredict"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_button"
+            android:padding="10dp"
+            android:text="@string/predict"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
