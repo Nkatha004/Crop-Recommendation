@@ -2,7 +2,7 @@
     <string name="app_name">M-SHAMBA</string>
 
     <string name="crop_recommendation">CROP RECOMMENDATION</string>
-    <string name="farm_location">Input Farm Location</string>
+    <string name="farm_location">My Farm Location</string>
     <string name="parameters">Input soil parameters as NPK ratios | View weather parameters</string>
     <string name="prediction_result">Crop Prediction Result</string>
 

@@ -10,6 +10,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.widget.TextView
 import android.widget.Toast
@@ -29,20 +30,20 @@ class LocationInput : AppCompatActivity() {
         setContentView(R.layout.activity_location_input)
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        val currentLocation = findViewById<TextView>(R.id.btnMyLocation)
-        currentLocation.setOnClickListener{
-            //Get my location
-            getLocation()
-        }
+        getLocation()
+        val intent = Intent(this, Parameters::class.java)
 
-        val mapsLocation = findViewById<TextView>(R.id.btnLocationSubmit)
+        intent.putExtra("latitude", latitude)
+        intent.putExtra("longitude", longitude)
 
         //redirect to parameters page
-        mapsLocation.setOnClickListener{
-            val intent = Intent(this, Parameters::class.java)
+        Handler().postDelayed({
+            startActivity(intent)
+            finish()
+        }, 10000)
 
-            intent.putExtra("latitude", latitude)
-            intent.putExtra("longitude", longitude)
+        val mapsLocation = findViewById<TextView>(R.id.btnLocationSubmit)
+        mapsLocation.setOnClickListener{
             startActivity(intent)
             finish()
         }
@@ -62,6 +63,7 @@ class LocationInput : AppCompatActivity() {
                         longitude = list[0].longitude
 
                         findViewById<TextView>(R.id.txtLocation).text = "${latitude}, ${longitude}, ${list[0].countryName}"
+                        findViewById<TextView>(R.id.txtLocation).isEnabled = false
                     }
                 }
             } else {
