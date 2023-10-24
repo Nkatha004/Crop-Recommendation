@@ -27,4 +27,7 @@
     <string name="next">NEXT</string>
     <string name="predict">PREDICT</string>
     <string name="home">HOME</string>
+
+    <string name="temp_coordinates">37.42, -122.08</string>
+    <string name="temp_locality">Nairobi, Kenya</string>
 </resources>

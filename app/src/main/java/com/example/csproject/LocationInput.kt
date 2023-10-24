@@ -62,8 +62,8 @@ class LocationInput : AppCompatActivity() {
                         latitude = list[0].latitude
                         longitude = list[0].longitude
 
-                        findViewById<TextView>(R.id.txtLocation).text = "${latitude}, ${longitude}, ${list[0].countryName}"
-                        findViewById<TextView>(R.id.txtLocation).isEnabled = false
+                        findViewById<TextView>(R.id.coordinates).text = "${latitude}, ${longitude}"
+                        findViewById<TextView>(R.id.locality).text = "${list[0].locality}, ${list[0].countryName}"
                     }
                 }
             } else {

@@ -58,20 +58,43 @@
             android:layout_marginTop="100dp"
             android:background="@drawable/location" />
 
-        <EditText
-            android:id="@+id/txtLocation"
-            android:layout_width="278dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="@color/header"
-            android:hint="@string/location"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            android:textColor="@color/normal"
-            android:textColorHint="@color/primary"
-            android:visibility="visible"
-            tools:visibility="visible" />
+<!--        <EditText-->
+<!--            android:id="@+id/txtLocation"-->
+<!--            android:layout_width="278dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:backgroundTint="@color/header"-->
+<!--            android:hint="@string/location"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/normal"-->
+<!--            android:textColorHint="@color/primary"-->
+<!--            android:visibility="visible"-->
+<!--            tools:visibility="visible" />-->
+
+
+        <TextView
+            android:id="@+id/coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="@string/temp_coordinates"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/locality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="@string/temp_locality"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"/>
 
         <Button
             android:id="@+id/btnLocationSubmit"
