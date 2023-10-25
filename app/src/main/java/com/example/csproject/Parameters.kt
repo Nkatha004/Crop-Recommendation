@@ -14,19 +14,24 @@ import org.json.JSONObject
 import java.net.URL
 
 interface DataListener {
-    fun onDataReceived(result: String?)
+    fun onDataReceived(averagesResult: String?, weatherResult: String?)
 }
 
 class Parameters : AppCompatActivity(), DataListener {
 
     private val getWeather = GetWeather()
-    private val api: String = "8020ae170364761c9bab565a437b0b21"
+    //world weather online
+    private val api: String = "82d2da52022d4904a58103506232010"
+
+    //open weather api
+    private val apiOpenweather: String = "8020ae170364761c9bab565a437b0b21"
+    private var isTaskExecuted = false
     var latitude = 0.0
     var longitude = 0.0
 
-    var rainfall = "0.0"
     var humidity = ""
     var temperature = ""
+    var rainfall = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +43,9 @@ class Parameters : AppCompatActivity(), DataListener {
         val simpleSwitch = findViewById<SwitchCompat>(R.id.WeatherSoilSwitch)
         simpleSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
-                Toast.makeText(this, "View Weather", Toast.LENGTH_SHORT).show()
                 findViewById<LinearLayout>(R.id.soilLayout).visibility = View.GONE
                 findViewById<LinearLayout>(R.id.weatherLayout).visibility = View.VISIBLE
             }else{
-                Toast.makeText(this, "View Soil", Toast.LENGTH_SHORT).show()
                 findViewById<LinearLayout>(R.id.weatherLayout).visibility = View.GONE
                 findViewById<LinearLayout>(R.id.soilLayout).visibility = View.VISIBLE
             }
@@ -50,8 +53,17 @@ class Parameters : AppCompatActivity(), DataListener {
         simpleSwitch.textOn = "Weather"
         simpleSwitch.textOff = "Soil"
 
-        getWeather.setDataListener(this)
-        getWeather.execute()
+        if(!isTaskExecuted){
+            try{
+                getWeather.setDataListener(this)
+                getWeather.execute()
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+
+            isTaskExecuted = true
+        }
+
 
         val output = findViewById<TextView>(R.id.btnPredict)
         output.setOnClickListener{
@@ -75,15 +87,33 @@ class Parameters : AppCompatActivity(), DataListener {
         }
     }
 
-    override fun onDataReceived(result: String?) {
-        // Handle the data received from the inner class
+    override fun onDataReceived(averagesResult: String?, weatherResult: String?){
 
-        val main = JSONObject(result).getJSONObject("main")
-        //rainfall = JSONObject(result).getJSONObject("rain").getString("1h")
+        //Handle rainfall averages from world weather online
+        val jsonObject = JSONObject(averagesResult)
+        val climateAverages = jsonObject.getJSONObject("data").getJSONArray("ClimateAverages")
+
+        // Initialize variables for calculating the average
+        var totalRainfall = 0.0
+        var numMonths = 0
+
+        // Loop through the months and calculate the total rainfall
+        for (i in 0 until climateAverages.length()) {
+            val month = climateAverages.getJSONObject(i)
+            val avgDailyRainfall = month.getJSONArray("month").getJSONObject(0).getString("avgDailyRainfall").toDouble()
+            totalRainfall += avgDailyRainfall
+            numMonths++
+        }
+
+        // Calculate the average rainfall
+        rainfall = (totalRainfall / numMonths).toString()
+
+        // Handle the data received from the open weather API with the weather results
+        val main = JSONObject(weatherResult).getJSONObject("main")
         temperature = main.getString("temp")
         humidity = main.getString("humidity")
 
-        findViewById<EditText>(R.id.rainfall).setText("$rainfall"+" mm")
+        findViewById<EditText>(R.id.rainfall).setText(rainfall + " mm")
         findViewById<EditText>(R.id.rainfall).isEnabled = false
 
         findViewById<EditText>(R.id.temperature).setText(temperature + " °C")
@@ -94,7 +124,7 @@ class Parameters : AppCompatActivity(), DataListener {
 
     }
 
-    inner class GetWeather() : AsyncTask<String, Void, String>(){
+    inner class GetWeather() : AsyncTask<Void, Void, Pair<String?, String?>>() {
 
         private var dataListener: DataListener? = null
 
@@ -102,24 +132,35 @@ class Parameters : AppCompatActivity(), DataListener {
             dataListener = listener
         }
 
-        override fun doInBackground(vararg params: String?): String? {
-            var response: String?
+        override fun doInBackground(vararg params: Void?): Pair<String?, String?> {
+            var averageResponse: String?
+            var weatherResponse: String?
+
             try{
-                response = URL("https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$api&units=metric")
+                //obtain the monthly averages
+                averageResponse = URL("https://api.worldweatheronline.com/premium/v1/weather.ashx?key=$api&q=$latitude,$longitude&fx=no&cc=no&mca=yes&format=json&includelocation=yes")
+                    .readText(Charsets.UTF_8)
+
+                //obtain other weather values
+                weatherResponse = URL("https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiOpenweather&units=metric")
                     .readText(Charsets.UTF_8)
             }
             catch(e : Exception) {
-                response = null
+                e.printStackTrace()
+                averageResponse = null
+                weatherResponse = null
             }
-            return response
+
+            return Pair(averageResponse, weatherResponse)
         }
 
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
+        override fun onPostExecute(result: Pair<String?, String?>) {
             try{
-                dataListener?.onDataReceived(result)
+                val (averageResponse, weatherResponse) = result
+                dataListener?.onDataReceived(averageResponse, weatherResponse)
+
             }catch (e: Exception){
-                println(e.printStackTrace())
+                e.printStackTrace()
             }
         }
     }

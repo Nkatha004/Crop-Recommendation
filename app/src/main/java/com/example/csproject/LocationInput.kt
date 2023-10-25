@@ -31,19 +31,14 @@ class LocationInput : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLocation()
-        val intent = Intent(this, Parameters::class.java)
-
-        intent.putExtra("latitude", latitude)
-        intent.putExtra("longitude", longitude)
-
-        //redirect to parameters page
-        Handler().postDelayed({
-            startActivity(intent)
-            finish()
-        }, 10000)
 
         val mapsLocation = findViewById<TextView>(R.id.btnLocationSubmit)
         mapsLocation.setOnClickListener{
+            val intent = Intent(this, Parameters::class.java)
+
+            intent.putExtra("latitude", latitude)
+            intent.putExtra("longitude", longitude)
+
             startActivity(intent)
             finish()
         }

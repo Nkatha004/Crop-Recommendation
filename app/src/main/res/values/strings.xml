@@ -8,7 +8,6 @@
 
     <string name="location">Location</string>
     <string name="recommended_crop">Recommended crop: </string>
-    <string name="crop">RICE</string>
     <string name="myLocation">Use my current location</string>
     <string name="error">Something went wrong!</string>
     <string name="weather_parameters">View Weather Parameters</string>
