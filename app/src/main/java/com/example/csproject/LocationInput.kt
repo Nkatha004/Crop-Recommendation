@@ -56,18 +56,14 @@ class LocationInput : AppCompatActivity() {
                             geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         latitude = list[0].latitude
                         longitude = list[0].longitude
-                        println("Heey")
-                        println(list[0])
 
                         findViewById<TextView>(R.id.coordinates).text = "${latitude}, ${longitude}"
                         findViewById<TextView>(R.id.locality).text = "${list[0].locality}, ${list[0].countryName}"
                     }else{
                         println("Location not found")
-                        println(task.result)
                     }
                 }
             } else {
-                println("Niko hapa")
                 Toast.makeText(this, "Please turn on location to proceed", Toast.LENGTH_LONG).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
