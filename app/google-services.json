@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "703282612815",
+    "firebase_url": "https://csproject-46176-default-rtdb.firebaseio.com",
+    "project_id": "csproject-46176",
+    "storage_bucket": "csproject-46176.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703282612815:android:e530a8c151a8d3d6d4f83a",
+        "android_client_info": {
+          "package_name": "com.example.csproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEOSuaRVamQMX-yE0H3jk0Z1y4LlqWCBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
