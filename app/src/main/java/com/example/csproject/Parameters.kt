@@ -6,15 +6,14 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.os.AsyncTask
 import android.widget.EditText
 import org.json.JSONObject
 import java.net.URL
-import androidx.lifecycle.lifecycleScope
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -38,6 +37,9 @@ class Parameters : AppCompatActivity(), DataListener {
     var humidity = ""
     var temperature = ""
     var rainfall = ""
+    var potassium = ""
+    var nitrogen = ""
+    var phosphorous = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,29 +76,29 @@ class Parameters : AppCompatActivity(), DataListener {
         //firebase ops
         // Call the function to retrieve the last values using coroutines
         lifecycleScope.launch {
-            val nitro = retrieveLastValue("nitrogen")
-            val potassium = retrieveLastValue("potassium")
-            val phosphorous = retrieveLastValue("phosphorous")
+            phosphorous = getSoilParams("phosphorous").toString()
+            nitrogen = getSoilParams("nitrogen").toString()
+            potassium = getSoilParams("potassium").toString()
 
-            // Use nitro, potassium, phosphorous here
-            println("Last Nitrogen Value: $nitro")
-            println("Last Potassium Value: $potassium")
-            println("Last Phosphorous Value: $phosphorous")
+            findViewById<EditText>(R.id.nitrogen).setText(nitrogen + " mg/kg")
+            findViewById<EditText>(R.id.nitrogen).isEnabled = false
+
+            findViewById<EditText>(R.id.potassium).setText(potassium + " mg/kg")
+            findViewById<EditText>(R.id.potassium).isEnabled = false
+
+            findViewById<EditText>(R.id.phosphorous).setText(phosphorous + " mg/kg")
+            findViewById<EditText>(R.id.phosphorous).isEnabled = false
         }
 
         val output = findViewById<TextView>(R.id.btnPredict)
         output.setOnClickListener{
             val intent = Intent(this, PredictedOutput::class.java)
-
             val phValue = findViewById<EditText>(R.id.pH).text
-            val nitrogenValue = findViewById<EditText>(R.id.nitrogen).text
-            val phosphorousValue = findViewById<EditText>(R.id.phosphorous).text
-            val potassiumValue = findViewById<EditText>(R.id.potassium).text
 
             intent.putExtra("pH", "$phValue")
-            intent.putExtra("nitrogen", "$nitrogenValue")
-            intent.putExtra("phosphorous", "$phosphorousValue")
-            intent.putExtra("potassium", "$potassiumValue")
+            intent.putExtra("nitrogen", "$nitrogen")
+            intent.putExtra("phosphorous", "$phosphorous")
+            intent.putExtra("potassium", "$potassium")
             intent.putExtra("rainfall", "$rainfall")
             intent.putExtra("temperature", "$temperature")
             intent.putExtra("humidity", "$humidity")
@@ -106,7 +108,7 @@ class Parameters : AppCompatActivity(), DataListener {
         }
     }
 
-    private suspend fun retrieveLastValue(element: String): Int = suspendCoroutine { continuation ->
+    private suspend fun getSoilParams(element: String): Int = suspendCoroutine { continuation ->
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("npk")
         val elementReference = databaseReference.child(element)
 

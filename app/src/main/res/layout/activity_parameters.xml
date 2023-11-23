@@ -71,11 +71,24 @@
             android:visibility="visible">
 
             <EditText
-                android:id="@+id/nitrogen"
+                android:id="@+id/pH"
                 android:layout_width="278dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:backgroundTint="@color/header"
+                android:hint="@string/pH"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/normal"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/nitrogen"
+                android:layout_width="278dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
                 android:backgroundTint="@color/header"
                 android:hint="@string/nitrogen"
                 android:inputType="numberDecimal"
@@ -104,19 +117,6 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/header"
                 android:hint="@string/potassium"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textColor="@color/normal"
-                android:textColorHint="@color/primary" />
-
-            <EditText
-                android:id="@+id/pH"
-                android:layout_width="278dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:backgroundTint="@color/header"
-                android:hint="@string/pH"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 android:textColor="@color/normal"
