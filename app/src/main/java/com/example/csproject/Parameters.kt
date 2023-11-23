@@ -12,6 +12,12 @@ import android.os.AsyncTask
 import android.widget.EditText
 import org.json.JSONObject
 import java.net.URL
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.*
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 interface DataListener {
     fun onDataReceived(averagesResult: String?, weatherResult: String?)
@@ -64,6 +70,18 @@ class Parameters : AppCompatActivity(), DataListener {
             isTaskExecuted = true
         }
 
+        //firebase ops
+        // Call the function to retrieve the last values using coroutines
+        lifecycleScope.launch {
+            val nitro = retrieveLastValue("nitrogen")
+            val potassium = retrieveLastValue("potassium")
+            val phosphorous = retrieveLastValue("phosphorous")
+
+            // Use nitro, potassium, phosphorous here
+            println("Last Nitrogen Value: $nitro")
+            println("Last Potassium Value: $potassium")
+            println("Last Phosphorous Value: $phosphorous")
+        }
 
         val output = findViewById<TextView>(R.id.btnPredict)
         output.setOnClickListener{
@@ -85,6 +103,32 @@ class Parameters : AppCompatActivity(), DataListener {
             startActivity(intent)
             finish()
         }
+    }
+
+    private suspend fun retrieveLastValue(element: String): Int = suspendCoroutine { continuation ->
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("npk")
+        val elementReference = databaseReference.child(element)
+
+        elementReference.orderByKey().limitToLast(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Check if there is any data
+                    if (dataSnapshot.exists()) {
+                        // Iterate through the dataSnapshot to get the last entry
+                        for (childSnapshot in dataSnapshot.children) {
+                            val lastValue = childSnapshot.getValue(Int::class.java)
+                            continuation.resume(lastValue ?: 0)
+                            return
+                        }
+                    }
+                    continuation.resume(0)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    println("Failed to retrieve last $element value: ${databaseError.message}")
+                    continuation.resume(0)
+                }
+            })
     }
 
     override fun onDataReceived(averagesResult: String?, weatherResult: String?){
