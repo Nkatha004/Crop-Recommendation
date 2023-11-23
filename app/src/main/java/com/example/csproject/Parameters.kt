@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.os.AsyncTask
 import android.widget.EditText
