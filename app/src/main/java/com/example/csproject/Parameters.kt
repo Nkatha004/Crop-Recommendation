@@ -42,6 +42,7 @@ class Parameters : AppCompatActivity(), DataListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parameters)
+        FirebaseApp.initializeApp(this);
 
         latitude = intent.getDoubleExtra("latitude", 0.0)
         longitude = intent.getDoubleExtra("longitude", 0.0)
