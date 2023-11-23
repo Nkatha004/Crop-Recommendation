@@ -1,5 +1,6 @@
 package com.example.csproject
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -49,6 +50,14 @@ class Parameters : AppCompatActivity(), DataListener {
         latitude = intent.getDoubleExtra("latitude", 0.0)
         longitude = intent.getDoubleExtra("longitude", 0.0)
 
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Welcome!")
+        builder.setMessage("Kindly input the soil pH only as obtained from your sensor, all other fields will be auto-populated. Thank you!")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+
         val simpleSwitch = findViewById<SwitchCompat>(R.id.WeatherSoilSwitch)
         simpleSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked){
@@ -94,17 +103,43 @@ class Parameters : AppCompatActivity(), DataListener {
         output.setOnClickListener{
             val intent = Intent(this, PredictedOutput::class.java)
             val phValue = findViewById<EditText>(R.id.pH).text
+            val builder = AlertDialog.Builder(this)
 
-            intent.putExtra("pH", "$phValue")
-            intent.putExtra("nitrogen", "$nitrogen")
-            intent.putExtra("phosphorous", "$phosphorous")
-            intent.putExtra("potassium", "$potassium")
-            intent.putExtra("rainfall", "$rainfall")
-            intent.putExtra("temperature", "$temperature")
-            intent.putExtra("humidity", "$humidity")
+            if(phValue.isNotEmpty()){
+                if(phValue.toString().toInt() <= 0){
+                    builder.setTitle("Soil pH Value")
+                    builder.setMessage("Sorry, soil pH should be a value greater than 0 i.e. 1 and above!")
+                    builder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    builder.show()
+                }else if(phValue.toString().toInt() > 14){
+                    builder.setTitle("Soil pH Value")
+                    builder.setMessage("Sorry, soil pH should be a value less than 15 i.e. 14 and below!")
+                    builder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    builder.show()
+                }else{
+                    intent.putExtra("pH", "$phValue")
+                    intent.putExtra("nitrogen", "$nitrogen")
+                    intent.putExtra("phosphorous", "$phosphorous")
+                    intent.putExtra("potassium", "$potassium")
+                    intent.putExtra("rainfall", "$rainfall")
+                    intent.putExtra("temperature", "$temperature")
+                    intent.putExtra("humidity", "$humidity")
 
-            startActivity(intent)
-            finish()
+                    startActivity(intent)
+                    finish()
+                }
+            }else{
+                builder.setTitle("Soil pH Value")
+                builder.setMessage("Sorry, soil pH value is required!")
+                builder.setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                builder.show()
+            }
         }
     }
 
