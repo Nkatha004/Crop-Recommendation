@@ -28,12 +28,6 @@ class PredictedOutput : AppCompatActivity() {
         val humidity = intent.getStringExtra("humidity")
         val temperature = intent.getStringExtra("temperature")
 
-        System.out.println("Nitrogen $nitrogen")
-        System.out.println("Phosphorous $phosphorous")
-        System.out.println("Potassium $potassium")
-        System.out.println("PH $ph")
-
-
         // Create a Volley request queue
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
 
